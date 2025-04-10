@@ -143,6 +143,11 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.UserRoles = exports.$Enums.UserRoles = {
+  student: 'student',
+  teacher: 'teacher'
+};
+
 exports.Subject = exports.$Enums.Subject = {
   ENGLISH: 'ENGLISH',
   MATH: 'MATH'
