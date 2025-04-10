@@ -1,5 +1,5 @@
 // src/data/users.ts
 
-import { User } from "../models/User";
+import { Users } from "../models/Users";
 
-export const users: User[] = [];
+export const users: Users[] = [];

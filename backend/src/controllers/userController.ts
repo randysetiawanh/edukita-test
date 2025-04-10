@@ -1,10 +1,13 @@
 // src/controllers/userController
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { User, UserRole } from '../models/User';
+import { Users, UserRole } from '../models/Users';
 import { users } from '../data/users';
+import { PrismaClient } from '../generated/prisma';
 
-export const createUser = (req: Request, res: Response): Response => {
+const prisma = new PrismaClient();
+
+export const createUser = async (req: Request, res: Response) => {
   const { name, email, role } = req.body;
 
   if (!name || !email || !role) {
@@ -15,17 +18,14 @@ export const createUser = (req: Request, res: Response): Response => {
     return res.status(400).json({ message: 'Role must be either "student" or "teacher".' });
   }
 
-  const newUser: User = {
-    id: uuidv4(),
-    name,
-    email,
-    roles: role as UserRole,
-  };
+  try {
+    const user = await prisma.users.create({
+      data: { name, email, role },
+    });
 
-  users.push(newUser);
-
-  return res.status(201).json({
-    message: 'User created successfully.',
-    user: newUser,
-  });
+    return res.status(201).json({ message: 'User created successfully', user });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
 };
