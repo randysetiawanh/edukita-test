@@ -9,6 +9,7 @@ export const createUser = (req: Request, res: Response): Response => {
 
   // Validasi input
   if (!name || !email || !role) {
+    console.log(name);
     return res.status(400).json({ message: 'Name, email, and role are required.' });
   }
 
@@ -21,7 +22,7 @@ export const createUser = (req: Request, res: Response): Response => {
     id: uuidv4(),
     name,
     email,
-    role: role as UserRole,
+    roles: role as UserRole,
   };
 
   // Simpan ke array sementara
