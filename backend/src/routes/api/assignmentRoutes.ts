@@ -1,9 +1,9 @@
 // src/routes/api/userRoutes.ts
 import express from 'express';
-import { createUser } from '../../controllers/userController';
+import { submitAssignment } from '../../controllers/assignmentController';
 
 const router = express.Router();
 
-router.post('/store', createUser);
+router.post('/store', submitAssignment);
 
 export default router;

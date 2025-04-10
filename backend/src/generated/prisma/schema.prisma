@@ -15,8 +15,25 @@ datasource db {
 }
 
 model Users {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
-  role  String
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  role        String
+  assignments Assignment[]
+  createdAt   DateTime     @default(now())
+}
+
+model Assignment {
+  id        String   @id @default(uuid())
+  subject   Subject
+  title     String
+  content   String
+  student   Users    @relation(fields: [studentId], references: [id])
+  studentId String
+  createdAt DateTime @default(now())
+}
+
+enum Subject {
+  ENGLISH
+  MATH
 }

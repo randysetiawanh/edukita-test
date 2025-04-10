@@ -121,7 +121,17 @@ exports.Prisma.UsersScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  role: 'role'
+  role: 'role',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AssignmentScalarFieldEnum = {
+  id: 'id',
+  subject: 'subject',
+  title: 'title',
+  content: 'content',
+  studentId: 'studentId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -133,10 +143,14 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.Subject = exports.$Enums.Subject = {
+  ENGLISH: 'ENGLISH',
+  MATH: 'MATH'
+};
 
 exports.Prisma.ModelName = {
-  Users: 'Users'
+  Users: 'Users',
+  Assignment: 'Assignment'
 };
 
 /**
