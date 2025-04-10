@@ -19,13 +19,30 @@ export const createUser = async (req: Request, res: Response) => {
   }
 
   try {
+    const existingUser = await prisma.users.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return res.status(409).json({ 
+        status: false,
+        message: 'User with this email already exists.'
+      });
+    }
+
     const user = await prisma.users.create({
       data: { name, email, role },
     });
 
-    return res.status(201).json({ message: 'User created successfully', user });
+    return res.status(201).json({ 
+      status: true,
+      message: 'User created successfully',
+      user
+    });
   } catch (error) {
     console.error('Error creating user:', error);
-    return res.status(500).json({ message: 'Something went wrong' });
+    return res.status(500).json({ 
+      message: 'Something went wrong' 
+    });
   }
 };
