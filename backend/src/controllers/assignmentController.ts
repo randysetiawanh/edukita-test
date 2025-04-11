@@ -4,6 +4,55 @@ import { PrismaClient, Subject } from '../generated/prisma';
 
 const prisma = new PrismaClient();
 
+export const getAssignments = async (req: Request, res: Response): Promise<Response> => {
+  const { subject, id } = req.query;
+  const filters: any = {};
+
+  if (subject && !Object.values(Subject).includes(subject as Subject)) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid subject. Must be "ENGLISH" or "MATH".',
+    });
+  }
+
+  try {
+    if (subject && Object.values(Subject).includes(subject as Subject)) {
+      filters.subject = subject;
+    }
+    
+    if (id) {
+      filters.id = id;
+    }
+
+    const assignments = await prisma.assignment.findMany({
+      where: filters,
+      include: {
+        student: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return res.status(200).json({
+      status: true,
+      message: 'Assignments retrieved successfully.',
+      assignments,
+    });
+  } catch (error) {
+    console.error('Error fetching assignments:', error);
+    return res.status(500).json({
+      status: false,
+      message: 'Something went wrong while retrieving assignments.',
+    });
+  }
+};
 
 export const submitAssignment = async (req: Request, res: Response): Promise<Response> => {
   const { subject, title, content, studentId } = req.body;
