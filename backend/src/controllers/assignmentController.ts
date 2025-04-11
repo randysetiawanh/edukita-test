@@ -1,6 +1,7 @@
 // src/controllers/assignmentController.ts
 import { Request, Response } from 'express';
 import { PrismaClient, Subject } from '../generated/prisma';
+import logger from '../utils/logger';
 
 const prisma = new PrismaClient();
 
@@ -47,6 +48,7 @@ export const getAssignments = async (req: Request, res: Response): Promise<Respo
     });
   } catch (error) {
     console.error('Error fetching assignments:', error);
+    logger.error('Error fetching assignment: ', error);
     return res.status(500).json({
       status: false,
       message: 'Something went wrong while retrieving assignments.',
@@ -96,7 +98,8 @@ export const submitAssignment = async (req: Request, res: Response): Promise<Res
       assignment,
     });
   } catch (error) {
-    console.error('Error submitting assignment:', error);
+    console.error('Error submitting assignment: ', error);
+    logger.error('Error submitting assignment: ', error);
     return res.status(500).json({
       status: false,
       message: 'Something went wrong while submitting the assignment.',

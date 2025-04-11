@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '../generated/prisma';
-
+import logger from '../utils/logger';
 
 const prisma = new PrismaClient();
 
@@ -59,6 +59,7 @@ export const submitGrade = async (req: Request, res: Response): Promise<Response
     });
   } catch (error) {
     console.error('Error grading assignment:', error);
+    logger.error('Error grading assignment: ', error);
     return res.status(500).json({
       status: false,
       message: 'Something went wrong while submitting grade.',

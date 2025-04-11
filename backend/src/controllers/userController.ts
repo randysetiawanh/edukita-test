@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { PrismaClient, UserRoles } from '../generated/prisma';
+import logger from '../utils/logger';
 
 const prisma = new PrismaClient();
 
@@ -47,6 +48,7 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     });
   } catch (error) {
     console.error('Error creating user:', error);
+    logger.error('Error creating user: ', error);
     return res.status(500).json({
       status: false,
       message: 'Something went wrong while creating user.',
