@@ -1,6 +1,6 @@
 // src/index.ts
 import express from 'express';
-import apiRoutes from './routes';
+import apiRoutes from './routes/index';
 
 const app = express();
 const PORT = 10101;
