@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
   const { name, email, role } = req.body;
 
-  // Validasi input
   if (!name || !email || !role) {
     return res.status(400).json({
       status: false,
@@ -14,7 +13,6 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     });
   }
 
-  // Validasi role
   if (!Object.values(UserRoles).includes(role)) {
     return res.status(400).json({
       status: false,
@@ -23,7 +21,6 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
   }
 
   try {
-    // Cek apakah user dengan email tersebut sudah ada
     const existingUser = await prisma.users.findUnique({
       where: { email },
     });
@@ -35,7 +32,6 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
       });
     }
 
-    // Buat user baru
     const user = await prisma.users.create({
       data: {
         name,

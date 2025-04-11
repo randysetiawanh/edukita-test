@@ -134,6 +134,15 @@ exports.Prisma.AssignmentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.GradeScalarFieldEnum = {
+  id: 'id',
+  grade: 'grade',
+  feedback: 'feedback',
+  teacherId: 'teacherId',
+  assignmentId: 'assignmentId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -155,7 +164,8 @@ exports.Subject = exports.$Enums.Subject = {
 
 exports.Prisma.ModelName = {
   Users: 'Users',
-  Assignment: 'Assignment'
+  Assignment: 'Assignment',
+  Grade: 'Grade'
 };
 
 /**
