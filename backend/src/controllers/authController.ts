@@ -1,9 +1,11 @@
+// src/controllers/authController.ts
+
 import { Request, Response } from 'express';
 import { PrismaClient, UserRoles } from '../generated/prisma';
 import { generateToken } from '../utils/auth';
 
 const prisma = new PrismaClient();
-const INTERNAL_PASSWORD = process.env.AUTH_INTERNAL_PASSWORD || 'edukita-inT3rN4l!Lk31s@1kaKl$204asS';
+const INTERNAL_PASSWORD = process.env.AUTH_INTERNAL_PASSWORD || '';
 
 export const internalLogin = async (req: Request, res: Response): Promise<Response> => {
   const { userId, password } = req.body;

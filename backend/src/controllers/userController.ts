@@ -1,11 +1,11 @@
+// src/controllers/userController.ts
+
 import { Request, Response } from 'express';
 import { PrismaClient, UserRoles } from '../generated/prisma';
 import logger from '../utils/logger';
 import { generateToken } from '../utils/auth';
 
 const prisma = new PrismaClient();
-const INTERNAL_PASSWORD = process.env.AUTH_INTERNAL_PASSWORD || 'edukita-inT3rN4l!Lk31s@1kaKl$204asS';
-
 
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
   const { name, email, role } = req.body;

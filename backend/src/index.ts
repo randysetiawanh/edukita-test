@@ -1,4 +1,5 @@
 // src/index.ts
+
 import express from 'express';
 import apiRoutes from './routes/index';
 import { authenticate } from './utils/auth';
