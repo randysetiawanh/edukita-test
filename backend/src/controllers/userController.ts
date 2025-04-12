@@ -4,18 +4,20 @@ import { Request, Response } from 'express';
 import { PrismaClient, UserRoles } from '../generated/prisma';
 import logger from '../utils/logger';
 import { generateToken } from '../utils/auth';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
+
 // Controller untuk membuat user baru (baik student maupun teacher)
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
-  const { name, email, role } = req.body;
+  const { name, email, password, role } = req.body;
 
   // Validasi input wajib
-  if (!name || !email || !role) {
+  if (!name || !email || !role || !password) {
     return res.status(400).json({
       status: false,
-      message: 'Name, email, and role are required.',
+      message: 'All field are required.',
     });
   }
 
@@ -40,12 +42,15 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
       });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10)
+
     // Simpan user baru ke database
     const user = await prisma.users.create({
       data: {
         name,
         email,
-        role,
+        password: hashedPassword,
+        role
       },
     });
 
@@ -68,3 +73,4 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     });
   }
 };
+
