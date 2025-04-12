@@ -14,7 +14,7 @@ app.use(express.json());
 // Middleware global untuk proteksi semua route di bawah "/api"
 app.use('/api', (req: Request, res: Response, next: NextFunction) => {
   // Daftar route publik yang tidak membutuhkan token (whitelist)
-  const publicRoutes = ['/auth/login', '/users'];
+  const publicRoutes = ['/auth/login', '/auth/frontend-login', '/users'];
 
   // Cek apakah route saat ini termasuk route publik
   const isPublic = publicRoutes.some(path => req.path.startsWith(path));
