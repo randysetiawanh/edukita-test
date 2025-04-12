@@ -11,6 +11,12 @@ const logger = createLogger({
   level: 'info',
   format: format.combine(format.timestamp(), logFormat),
   transports: [
+    new transports.Console({
+      format: format.combine(
+        format.colorize(),
+        format.simple()
+      ),
+    }),
     new transports.File({
       filename: path.join(__dirname, '../../logs/error.log'),
       level: 'error',
