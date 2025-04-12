@@ -166,6 +166,21 @@ The server will run at: `http://localhost:10101`
 
 ---
 
+## 📬 Postman Collection
+
+Untuk mencoba API secara langsung:
+
+- [Download Collection](./postman/Edukita.postman_collection.json)
+- [Download Environment](./postman/Edukita%20Local.postman_environment.json)
+
+**Langkah cepat:**
+1. Buka Postman
+2. Import kedua file tersebut
+3. Pilih environment `Edukita Local`
+4. Jalankan setiap request sesuai kebutuhan
+
+---
+
 ## ✅ Requirements
 - Node.js 18+
 - PostgreSQL (local or cloud)
@@ -181,5 +196,5 @@ The server will run at: `http://localhost:10101`
 ---
 
 ## 👨‍💻 Author
-**Randy Setiawan**  
+**Randy Setiawan Hoesin**  
 GitHub: [https://github.com/randysetiawanh](https://github.com/randysetiawanh)

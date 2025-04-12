@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "1c5b005c-c89e-446f-b538-c1ab72f2a95c",
+		"name": "Edukita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39182745"
+	},
+	"item": [
+		{
+			"name": "Users: Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Bryan2\",\n    \"email\" : \"bryan@gmail.com\",\n    \"role\" : \"student\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/store",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users: Generate Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": \"fc2f5a09-13a7-4cf0-96fc-6082d761fe0c\",\n  \"password\": \"edukita-inT3rN4l!Lk31s@1kaKl$204asS\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assignment: Store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"subject\": \"MATH\",\n  \"title\": \"My First Essay\",\n  \"content\": \"This is a sample assignment\",\n  \"studentId\": \"fc2f5a09-13a7-4cf0-96fc-6082d761fe0c\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/assignment/store",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"assignment",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Grade: Store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"grade\": 85,\n  \"feedback\": \"Great work, just fix your grammar.\",\n  \"teacherId\": \"d434f9f4-378e-45d3-83e5-2a4da7fc84cd\",\n  \"assignmentId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/grades/store",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"grades",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assignment: List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"subject\": \"ENGLISH\",\n  \"title\": \"My First Essay\",\n  \"content\": \"This is a sample assignment\",\n  \"studentId\": \"d2a0a97d-d83a-4933-ae7a-d35c846b418b\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/assignment/list",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"assignment",
+						"list"
+					],
+					"query": [
+						{
+							"key": "subject",
+							"value": "MATH",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
