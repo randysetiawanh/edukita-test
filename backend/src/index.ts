@@ -4,9 +4,12 @@ import express, { Request, Response, NextFunction } from 'express';
 import apiRoutes from './routes/index';
 import { authenticate } from './utils/auth';
 import logger from './utils/logger';
+import cors from 'cors';
 
 const app = express();
 const PORT = 10101;
+
+app.use(cors())
 
 // Middleware untuk parsing JSON body dari request
 app.use(express.json());
