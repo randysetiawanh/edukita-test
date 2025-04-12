@@ -168,16 +168,16 @@ The server will run at: `http://localhost:10101`
 
 ## 📬 Postman Collection
 
-Untuk mencoba API secara langsung:
+To try the API directly:
 
 - [Download Collection](./postman/Edukita.postman_collection.json)
 - [Download Environment](./postman/Edukita%20Local.postman_environment.json)
 
-**Langkah cepat:**
-1. Buka Postman
-2. Import kedua file tersebut
-3. Pilih environment `Edukita Local`
-4. Jalankan setiap request sesuai kebutuhan
+**Quick steps:**
+1. Open Postman
+2. Import both files
+3. Select the Edukita Local environment
+4. Execute each request as needed
 
 ---
 
