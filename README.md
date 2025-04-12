@@ -1,5 +1,4 @@
-<h1 align="center">Edukita Assignment</h1>
-
+#
 <div align="center">
 <a href="https://twitter.com/randysetiawn"><img src="https://img.shields.io/twitter/follow/randysetiawn.svg?style=social"/></a>
 <a href="https://github.com/randysetiawanh"><img src="https://img.shields.io/github/followers/randysetiawanh?label=Follow%20randysetiawanh&style=social"/></a>
@@ -12,8 +11,8 @@
 <a href="https://github.com/randysetiawanh/edukita-test/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/randysetiawanh/edukita-test?color=2b9348"></a>
 
 <i>Loved the project? Please consider <a href="https://paypal.me/randysetiawanh">donating</a> to help it improve!</i>
+#
 </div>
-
 
 # Edukita – Fullstack Assignment
 
