@@ -5,7 +5,7 @@ import { getAssignments, submitAssignment } from '../../controllers/assignmentCo
 
 const router = express.Router();
 
-router.get('/list', getAssignments);
-router.post('/store', submitAssignment);
+router.get('/list', getAssignments);        // Endpoint untuk mengambil semua assignment.
+router.post('/store', submitAssignment);    // Endpoint untuk siswa mengumpulkan assignment baru
 
 export default router;

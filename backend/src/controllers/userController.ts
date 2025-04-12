@@ -7,9 +7,11 @@ import { generateToken } from '../utils/auth';
 
 const prisma = new PrismaClient();
 
+// Controller untuk membuat user baru (baik student maupun teacher)
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
   const { name, email, role } = req.body;
 
+  // Validasi input wajib
   if (!name || !email || !role) {
     return res.status(400).json({
       status: false,
@@ -17,6 +19,7 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     });
   }
 
+  // Validasi bahwa role harus salah satu dari enum UserRoles (student/teacher)
   if (!Object.values(UserRoles).includes(role)) {
     return res.status(400).json({
       status: false,
@@ -25,6 +28,7 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
   }
 
   try {
+    // Cek apakah user dengan email tersebut sudah terdaftar
     const existingUser = await prisma.users.findUnique({
       where: { email },
     });
@@ -36,6 +40,7 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
       });
     }
 
+    // Simpan user baru ke database
     const user = await prisma.users.create({
       data: {
         name,
@@ -44,8 +49,10 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
       },
     });
 
+    // Generate token JWT untuk user yang baru dibuat
     const token = generateToken(user.id, user.role);
 
+    // Kembalikan data user + token
     return res.status(201).json({
       status: true,
       message: 'User created successfully.',

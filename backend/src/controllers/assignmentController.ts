@@ -6,10 +6,13 @@ import logger from '../utils/logger';
 
 const prisma = new PrismaClient();
 
+// Controller untuk mengambil daftar assignment
+// Mendukung filter berdasarkan subject dan id (jika ada)
 export const getAssignments = async (req: Request, res: Response): Promise<Response> => {
   const { subject, id } = req.query;
   const filters: any = {};
 
+  // Validasi subject jika diberikan sebagai query param
   if (subject && !Object.values(Subject).includes(subject as Subject)) {
     return res.status(400).json({
       status: false,
@@ -18,14 +21,17 @@ export const getAssignments = async (req: Request, res: Response): Promise<Respo
   }
 
   try {
+    // Tambahkan filter subject jika valid
     if (subject && Object.values(Subject).includes(subject as Subject)) {
       filters.subject = subject;
     }
-    
+
+    // Tambahkan filter id jika diberikan
     if (id) {
       filters.id = id;
     }
 
+    // Ambil data assignment dari database, sertakan info siswa pengirim
     const assignments = await prisma.assignment.findMany({
       where: filters,
       include: {
@@ -57,9 +63,11 @@ export const getAssignments = async (req: Request, res: Response): Promise<Respo
   }
 };
 
+// Controller untuk siswa mengumpulkan assignment
 export const submitAssignment = async (req: Request, res: Response): Promise<Response> => {
   const { subject, title, content, studentId } = req.body;
 
+  // Validasi bahwa semua field wajib ada
   if (!subject || !title || !content || !studentId) {
     return res.status(400).json({
       status: false,
@@ -67,6 +75,7 @@ export const submitAssignment = async (req: Request, res: Response): Promise<Res
     });
   }
 
+  // Validasi subject hanya boleh ENGLISH atau MATH
   if (!['ENGLISH', 'MATH'].includes(subject)) {
     return res.status(400).json({
       status: false,
@@ -75,6 +84,7 @@ export const submitAssignment = async (req: Request, res: Response): Promise<Res
   }
 
   try {
+    // Cari data user dan pastikan dia adalah student
     const student = await prisma.users.findUnique({ where: { id: studentId } });
 
     if (!student || student.role !== 'student') {
@@ -84,6 +94,7 @@ export const submitAssignment = async (req: Request, res: Response): Promise<Res
       });
     }
 
+    // Simpan data assignment ke database
     const assignment = await prisma.assignment.create({
       data: {
         subject: subject as Subject,

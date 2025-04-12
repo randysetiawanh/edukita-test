@@ -6,9 +6,11 @@ import logger from '../utils/logger';
 
 const prisma = new PrismaClient();
 
+// Controller untuk memberikan nilai dan feedback terhadap assignment
 export const submitGrade = async (req: Request, res: Response): Promise<Response> => {
   const { grade, feedback, teacherId, assignmentId } = req.body;
 
+  // Validasi input wajib
   if (!grade || !feedback || !teacherId || !assignmentId) {
     return res.status(400).json({
       status: false,
@@ -17,6 +19,7 @@ export const submitGrade = async (req: Request, res: Response): Promise<Response
   }
 
   try {
+    // Cek apakah teacher valid
     const teacher = await prisma.users.findUnique({ where: { id: teacherId } });
     if (!teacher || teacher.role !== 'teacher') {
       return res.status(400).json({
@@ -25,6 +28,7 @@ export const submitGrade = async (req: Request, res: Response): Promise<Response
       });
     }
 
+    // Cek apakah assignment valid
     const assignment = await prisma.assignment.findUnique({ where: { id: assignmentId } });
     if (!assignment) {
       return res.status(404).json({
@@ -33,6 +37,7 @@ export const submitGrade = async (req: Request, res: Response): Promise<Response
       });
     }
 
+    // Cek apakah assignment sudah dinilai sebelumnya
     const existingGrade = await prisma.grade.findUnique({
       where: { assignmentId },
     });
@@ -44,6 +49,7 @@ export const submitGrade = async (req: Request, res: Response): Promise<Response
       });
     }
 
+    // Simpan data penilaian ke database
     const newGrade = await prisma.grade.create({
       data: {
         grade,
@@ -68,9 +74,11 @@ export const submitGrade = async (req: Request, res: Response): Promise<Response
   }
 };
 
+// Controller untuk mengambil semua assignment milik siswa yang sudah dinilai
 export const getGrades = async (req: Request, res: Response): Promise<Response> => {
   const { studentId } = req.params;
 
+  // Validasi input student ID
   if (!studentId) {
     return res.status(400).json({
       status: false,
@@ -79,6 +87,7 @@ export const getGrades = async (req: Request, res: Response): Promise<Response> 
   }
 
   try {
+    // Cek apakah student valid
     const student = await prisma.users.findUnique({ where: { id: studentId } });
     if (!student || student.role !== 'student') {
       return res.status(404).json({
@@ -87,11 +96,12 @@ export const getGrades = async (req: Request, res: Response): Promise<Response> 
       });
     }
 
+    // Ambil assignment yang sudah dinilai (grade is not null)
     const gradedAssignments = await prisma.assignment.findMany({
       where: {
         studentId,
         grade: { 
-          NOT: {} 
+          NOT: {} // hanya assignment yang sudah dinilai
         },
       },
       include: {
