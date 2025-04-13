@@ -1,7 +1,7 @@
 // src/controllers/assignmentController.ts
 
 import { Request, Response } from 'express';
-import { PrismaClient, Subject } from '../generated/prisma';
+import { PrismaClient, Subject } from '@prisma/client';
 import logger from '../utils/logger';
 
 const prisma = new PrismaClient();

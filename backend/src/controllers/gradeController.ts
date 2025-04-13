@@ -1,7 +1,7 @@
 // src/controllers/gradeController.ts
 
 import { Request, Response } from 'express';
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient } from '@prisma/client';
 import logger from '../utils/logger';
 
 const prisma = new PrismaClient();
