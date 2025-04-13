@@ -22,11 +22,13 @@ A comprehensive fullstack application for teachers and students to:
 - View feedback and scores
 
 Built using:
-- **Frontend:** React.js
-- **Backend:** Node.js + Express.js
-- **Database:** PostgreSQL + Prisma
-- **Authentication:** JWT
+- **Frontend:** React.js, Tailwind CSS, shadcn/ui
+- **Backend:** Node.js, Express.js
+- **Database:** PostgreSQL, Prisma
+- **Authentication:** JWT, Zustand
 - **Logging:** Winston
+- **AI:** OpenRouter.ai
+- **etc:** Axios, MDEditor, Dotenv
 
 ---
 
@@ -35,7 +37,8 @@ Built using:
 ```
 edukita-test/
 ├── backend/    # Express.js + TypeScript backend
-├── frontend/   # React.js frontend
+├── frontend/   # React.js + TypeScript frontend
+├── postman/    # Postman Collection for API
 ├── README.md   # Project documentation
 ```
 
@@ -96,8 +99,6 @@ npm run seed
 
 This will generate:
 - 1 teacher, 2 students
-- 2 assignments
-- 1 graded assignment
 
 ### Start the Backend Server
 
@@ -109,29 +110,28 @@ The server will run at: `http://localhost:10101`
 
 ---
 
-<!--## 🖥️ Frontend Setup-->
+## 🖥️ Frontend Setup
 
-<!--Navigate to the `frontend/` directory:-->
+Navigate to the `frontend/` directory:
 
-<!--```bash-->
-<!--cd ../frontend-->
-<!--```-->
+```bash
+cd ../frontend
+```
 
-<!--### Install Dependencies-->
+### Install Dependencies
 
-<!--```bash-->
-<!--npm install-->
-<!--```-->
+```bash
+npm install
+```
 
-<!--### Start the Frontend Server-->
+### Start the Frontend Server
 
-<!--```bash-->
-<!--npm start-->
-<!--```-->
+```bash
+npm run dev
+```
 
-<!--The application will run at: `http://localhost:3000`-->
+The application will run at: `http://localhost:3000`
 
-<!------->
 
 ## 🔐 Authentication Flow
 
@@ -153,16 +153,19 @@ The server will run at: `http://localhost:10101`
 ## 🛠 Key Endpoints
 
 ### 🧑 User
-- `POST /api/users/store` – Create a new user (student/teacher)
-- `POST /api/auth/login` – Internal login using userId + internal password
+- `POST /api/users/store` – Create a new user (student/teacher).
+- `POST /api/auth/login` – Internal login using userId + internal password.
+- `POST /api/auth/frontend-login` – Login using email + password.
 
 ### 📝 Assignments
-- `POST /api/assignment/store` – Submit an assignment (student)
-- `GET /api/assignment/list?subject=ENGLISH` – View assignment list
+- `POST /api/assignment/store` – Submit an assignment (student).
+- `GET /api/assignment/list?id=:assignId` – View assignment list by Assignment id.
+- `GET /api/assignment/list?studentId=:studentId` – View assignment list by Student id.
+- `GET /api/assignment/list?subject=:subject` – View assignment list by Subject.
 
 ### 🏁 Grades
-- `POST /api/grades/store` – Submit grade and feedback (teacher)
-- `GET /api/grades/list/:studentId` – View grades (student)
+- `POST /api/grades/store` – Submit grade and feedback (teacher).
+- `GET /api/grades/list/:studentId` – View grades by student id.
 
 ---
 
