@@ -52,9 +52,18 @@ export default function SubmitAssignment() {
 
         <MDEditor value={content} onChange={(value) => setContent(value || '')} />
 
-        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg">
-          Submit
-        </button>
+        <div className="flex justify-between">
+          <button
+            type="button"
+            onClick={() => navigate('/student/assignments')}
+            className="text-sm text-gray-600 hover:underline"
+          >
+            ← Kembali
+          </button>
+          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );
