@@ -15,7 +15,7 @@ export default function SubmitAssignment() {
     e.preventDefault();
     try {
       await api.post('/assignment/store', {
-        subject,
+        subject: subject.toUpperCase(),
         title,
         content,
         studentId: user?.id,
@@ -58,7 +58,7 @@ export default function SubmitAssignment() {
             onClick={() => navigate('/student/assignments')}
             className="text-sm text-gray-600 hover:underline"
           >
-            ← Kembali
+            ← Back
           </button>
           <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md">
             Submit

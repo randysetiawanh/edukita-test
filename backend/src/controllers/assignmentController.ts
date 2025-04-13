@@ -66,7 +66,7 @@ export const getAssignments = async (req: Request, res: Response): Promise<Respo
 // Controller untuk siswa mengumpulkan assignment
 export const submitAssignment = async (req: Request, res: Response): Promise<Response> => {
   const { subject, title, content, studentId } = req.body;
-
+  console.log(subject);
   // Validasi bahwa semua field wajib ada
   if (!subject || !title || !content || !studentId) {
     return res.status(400).json({
