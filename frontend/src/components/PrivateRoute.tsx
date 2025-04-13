@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 
 interface PrivateRouteProps {
-  children: JSX.Element;
+  children: React.ReactNode;
   allowedRoles?: ('student' | 'teacher' | 'admin')[];
 }
 
