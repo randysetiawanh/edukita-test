@@ -2,7 +2,7 @@
 
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient, UserRoles } from '@prisma/client';
+import { PrismaClient, UserRoles } from '../generated/prisma';
 
 // Inisialisasi Prisma client untuk akses database
 const prisma = new PrismaClient();
