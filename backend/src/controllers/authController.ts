@@ -72,7 +72,7 @@ export const frontendLogin = async (req: Request, res: Response): Promise<Respon
 
   // Error handling ketika user tidak ditemukan
   if (!user) {
-    return res.status(404).json({
+    return res.status(401).json({
       status: false,
       message: "Invalid credentials.",
     })
