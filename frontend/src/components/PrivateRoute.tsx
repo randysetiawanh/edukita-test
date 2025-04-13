@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
+import React from 'react';
 
 interface PrivateRouteProps {
   children: JSX.Element;
@@ -15,7 +16,7 @@ export default function PrivateRoute({ children, allowedRoles = [] }: PrivateRou
     return <Navigate to="/" replace state={{ from: location }} />;
   }
 
-  if (allowedRoles.length && !allowedRoles.includes(user.role) && user.role !== 'admin') {
+  if (allowedRoles.length && !allowedRoles.includes(user.role)) {
     return <Navigate to="/" replace />;
   }
 

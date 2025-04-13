@@ -87,9 +87,9 @@ export default function SubmitGrade() {
           {assignment.grade ? (
             <div
               className={`p-3 rounded-md mt-2 ${
-                Number(a.grade.grade) <= 50
+                Number(assignment.grade.grade) <= 50
                   ? 'bg-red-100 text-red-800'
-                  : Number(a.grade.grade) <= 70 && Number(a.grade.grade) >= 51
+                  : Number(assignment.grade.grade) <= 70 && Number(assignment.grade.grade) >= 51
                   ? 'bg-yellow-100 text-yellow-800'
                   : 'bg-green-100 text-green-800'
               }`}

@@ -91,14 +91,14 @@ npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-### Seed Dummy Data (Optional)
+<!-- ### Seed Dummy Data (Optional)
 
 ```bash
 npm run seed
 ```
 
 This will generate:
-- 1 teacher, 2 students
+- 1 teacher, 2 students -->
 
 ### Start the Backend Server
 
