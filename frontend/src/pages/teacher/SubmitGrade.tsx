@@ -119,7 +119,7 @@ export default function SubmitGrade() {
                   type="button"
                   onClick={async () => {
                     if (!grade && grade !== '0') {
-                      alert('Masukkan nilai terlebih dahulu.');
+                      alert('Enter grade first.');
                       return;
                     }
 
