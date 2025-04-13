@@ -1,7 +1,7 @@
 // src/controllers/userController.ts
 
 import { Request, Response } from 'express';
-import { PrismaClient, UserRoles } from '../generated/prisma';
+import { PrismaClient, UserRoles } from '@prisma/client';
 import logger from '../utils/logger';
 import { generateToken } from '../utils/auth';
 import bcrypt from 'bcrypt';
