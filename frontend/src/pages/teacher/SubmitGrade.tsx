@@ -4,6 +4,7 @@ import api from '../../utils/api';
 import { useAuthStore } from '../../stores/authStore';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import Navbar from '../../components/Navbar';
+import { generateFeedbackAI } from '../../utils/generateFeedback';
 
 export default function SubmitGrade() {
   const { assignmentId } = useParams();
@@ -114,6 +115,28 @@ export default function SubmitGrade() {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">Feedback:</label>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (!grade && grade !== '0') {
+                      alert('Masukkan nilai terlebih dahulu.');
+                      return;
+                    }
+
+                    try {
+                      const result = await generateFeedbackAI(Number(grade));
+                      setFeedback(result);
+                      alert('Feedback generated.')
+                    } catch (err) {
+                      alert('Faildd generate feedback.');
+                      console.error(err);
+                    }
+                  }}
+                  className="text-sm text-blue-600 hover:underline mt-1 mb-2"
+                >
+                  🔮 Generate Feedback
+                </button>
+
                 <textarea
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
