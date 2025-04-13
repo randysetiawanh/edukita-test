@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Force editor to always use light mode */
+.w-md-editor,
+.w-md-editor-preview,
+.w-md-editor-text {
+  background-color: white !important;
+  color: black !important;
+}
+
+.w-md-editor {
+  --color-canvas-default: white;
+  --color-canvas-subtle: white;
+  --color-border-default: #e2e8f0; /* optional border tone */
+}
+
+.wmde-markdown {
+  background-color: white !important;
+  color: black !important;
+}
+  
