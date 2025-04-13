@@ -3,6 +3,7 @@ import Login from '../pages/Login';
 import SubmitAssignment from '../pages/student/SubmitAssignment';
 import StudentAssignmentList from '../pages/student/StudentAssignmentList';
 import PrivateRoute from '../components/PrivateRoute';
+import TeacherAssignmentList from '../pages/teacher/TeacherAssignmentList';
 
 export default function AppRoutes() {
   return (
@@ -24,6 +25,15 @@ export default function AppRoutes() {
             </PrivateRoute>
           }        
         />
+        <Route
+          path="/teacher/assignments"
+          element={
+            <PrivateRoute allowedRoles={['teacher']}>
+              <TeacherAssignmentList />
+            </PrivateRoute>
+          }
+        />
+
       </Routes>
     </Router>
   );

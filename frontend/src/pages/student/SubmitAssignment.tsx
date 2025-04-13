@@ -21,10 +21,10 @@ export default function SubmitAssignment() {
         content,
         studentId: user?.id,
       });
-      alert('Berhasil submit!');
+      alert('Successfully submit.');
       navigate('/student/assignments');
     } catch (err) {
-      alert('Gagal submit. Coba cek lagi.');
+      alert('Failed to submit.');
     }
   };
 
