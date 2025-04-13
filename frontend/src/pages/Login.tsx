@@ -2,12 +2,27 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import { useAuthStore } from '../stores/authStore';
+import { useEffect } from 'react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const setAuth = useAuthStore((state) => state.setAuth);
   const navigate = useNavigate();
+  const token = useAuthStore((state) => state.token);
+  const user = useAuthStore((state) => state.user);
+
+  useEffect(() => {
+    if (token && user) {
+      if (user.role === 'student') {
+        navigate('/student/assignments');
+      } else if (user.role === 'teacher') {
+        navigate('/teacher/assignments');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [token, user, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,14 +30,13 @@ export default function Login() {
       const res = await api.post('/auth/frontend-login', { email, password });
       const { user, token } = res.data;
       setAuth(user, token);
-      // Arahkan berdasarkan role
       if (user.role === 'student') {
         navigate('/student/assignments');
       } else {
         navigate('/teacher/assignments');
       }
     } catch (err) {
-      alert('Login gagal. Cek email/password!');
+      alert('Login Failed, please check email or password!');
     }
   };
 

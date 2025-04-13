@@ -8,17 +8,18 @@ export default function AppRoutes() {
   return (
     <Router>
       <Routes>
+
         <Route path="/" element={<Login />} />
         <Route path="/student/assignments/new"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['student']}>
               <SubmitAssignment />
             </PrivateRoute>
           }
         />
         <Route path="/student/assignments" 
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['student']}>
               <StudentAssignmentList />
             </PrivateRoute>
           }        
