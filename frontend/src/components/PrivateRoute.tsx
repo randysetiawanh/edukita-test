@@ -1,13 +1,25 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
-import type { ReactNode } from 'react';
 
-export default function PrivateRoute({ children }: { children: ReactNode }) {
+interface PrivateRouteProps {
+  children: JSX.Element;
+  allowedRoles?: ('student' | 'teacher' | 'admin')[];
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, allowedRoles = [] }) => {
   const token = useAuthStore((s) => s.token);
+  const user = useAuthStore((s) => s.user);
+  const location = useLocation();
 
-  if (!token) {
+  if (!token || !user) {
+    return <Navigate to="/" replace state={{ from: location }} />;
+  }
+
+  if (allowedRoles.length && !allowedRoles.includes(user.role)) {
     return <Navigate to="/" replace />;
   }
 
-  return <>{children}</>;
-}
+  return children;
+};
+
+export default PrivateRoute;
