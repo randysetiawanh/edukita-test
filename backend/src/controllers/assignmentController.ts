@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 // Controller untuk mengambil daftar assignment
 // Mendukung filter berdasarkan subject dan id (jika ada)
 export const getAssignments = async (req: Request, res: Response): Promise<Response> => {
-  const { subject, studentId } = req.query;
+  const { subject, id, studentId } = req.query;
   const filters: any = {};
 
   // Validasi subject jika diberikan sebagai query param
@@ -26,9 +26,14 @@ export const getAssignments = async (req: Request, res: Response): Promise<Respo
       filters.subject = subject;
     }
 
-    // Tambahkan filter id jika diberikan
+    // Tambahkan filter studentId jika diberikan
     if (studentId) {
       filters.studentId = studentId;
+    }
+
+    // Tambahkan filter id jika diberikan
+    if (id) {
+      filters.id = Number(id);
     }
 
     // Ambil data assignment dari database, sertakan info siswa pengirim
@@ -42,7 +47,8 @@ export const getAssignments = async (req: Request, res: Response): Promise<Respo
             email: true,
           },
         },
-      },
+        grade: true,
+      },      
       orderBy: {
         createdAt: 'desc',
       },

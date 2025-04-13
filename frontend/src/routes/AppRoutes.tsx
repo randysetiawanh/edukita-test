@@ -4,6 +4,7 @@ import SubmitAssignment from '../pages/student/SubmitAssignment';
 import StudentAssignmentList from '../pages/student/StudentAssignmentList';
 import PrivateRoute from '../components/PrivateRoute';
 import TeacherAssignmentList from '../pages/teacher/TeacherAssignmentList';
+import SubmitGrade from '../pages/teacher/SubmitGrade';
 
 export default function AppRoutes() {
   return (
@@ -30,6 +31,14 @@ export default function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={['teacher']}>
               <TeacherAssignmentList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/teacher/grade/:assignmentId"
+          element={
+            <PrivateRoute allowedRoles={['teacher']}>
+              <SubmitGrade />
             </PrivateRoute>
           }
         />

@@ -81,14 +81,25 @@ export default function TeacherAssignmentList() {
                   </div>
 
                   {a.grade ? (
-                    <div className="bg-green-100 text-green-800 p-3 rounded-md mt-2">
+                    <div
+                      className={`p-3 rounded-md mt-2 ${
+                        Number(a.grade.grade) <= 50
+                          ? 'bg-red-100 text-red-800'
+                          : Number(a.grade.grade) <= 70 && Number(a.grade.grade) >= 51
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : 'bg-green-100 text-green-800'
+                      }`}
+                    >
                       <p className="font-medium">Grade: {a.grade.grade}</p>
                       <p className="text-sm">Feedback: {a.grade.feedback}</p>
                     </div>
                   ) : (
                     <div className="flex justify-end">
                       <button
-                        onClick={() => navigate(`/teacher/grade/${a.id}`)}
+                        onClick={() => {
+                          console.log('Navigating to:', a.id);
+                          navigate(`/teacher/grade/${a.id}`);
+                        }}
                         className="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm"
                       >
                         Give Grade
