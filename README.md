@@ -22,13 +22,12 @@ A comprehensive fullstack application for teachers and students to:
 - View feedback and scores
 
 Built using:
-- **Frontend:** React.js, Tailwind CSS, shadcn/ui
-- **Backend:** Node.js, Express.js
-- **Database:** PostgreSQL, Prisma
-- **Authentication:** JWT, Zustand
+- **Frontend:** React.js, Tailwind CSS, shadcn/ui, Zustand, MDEditor
+- **Backend:** Node.js, Express.js, TypeScript
+- **Database:** PostgreSQL, Prisma ORM
+- **Authentication:** JWT
 - **Logging:** Winston
-- **AI:** OpenRouter.ai
-- **etc:** Axios, MDEditor, Dotenv
+- **AI Feedback:** OpenRouter.ai integration
 
 ---
 
@@ -55,7 +54,7 @@ cd edukita-test
 
 ### 2. Setup Environment Variables
 
-Create a `.env` file in the `backend/` directory:
+- Create a `.env` file in the `backend/` directory:
 
 ```env
 DATABASE_URL="postgresql://postgres:your_password@localhost:5432/edukita_test"
@@ -64,140 +63,121 @@ JWT_EXPIRES_IN="1d"
 AUTH_INTERNAL_PASSWORD="your_internal_password"
 ```
 
-- Replace `your_password` with your PostgreSQL password.
-- Replace `JWT_SECRET` with your randomly password.
-- Replace `AUTH_INTERNAL_PASSWORD` with your password.
+- Create a `.env` file in the `frontend/` directory:
+
+```env
+VITE_API_BASE_URL="backend api url base, ex : http://localhost:10101/api"
+VITE_OPENROUTER_API_KEY="generate api key from https://openrouter.ai/keys"
+VITE_OPENROUTER_MODEL=openai/gpt-3.5-turbo-0613 # Module in OpenRouter.ai
+```
 
 ---
 
 ## 📦 Backend Setup
 
-Navigate to the `backend/` directory:
-
 ```bash
 cd backend
-```
-
-### Install Dependencies
-
-```bash
 npm install
-```
-
-### Run Database Migrations
-
-```bash
 npx prisma migrate dev --name init
 npx prisma generate
-```
-
-<!-- ### Seed Dummy Data (Optional)
-
-```bash
-npm run seed
-```
-
-This will generate:
-- 1 teacher, 2 students -->
-
-### Start the Backend Server
-
-```bash
 npm run dev
 ```
 
-The server will run at: `http://localhost:10101`
+The backend will run at: `http://localhost:10101`
+
+### ✅ Backend Features Implemented
+- User creation, assignment submission, and grading endpoints
+- Role-based access control (student/teacher)
+- JWT-based authentication
+- Internal & frontend login support
+- Logging with Winston
+- AI Feedback logic (rule-based + OpenRouter.ai-ready)
 
 ---
 
 ## 🖥️ Frontend Setup
 
-Navigate to the `frontend/` directory:
-
 ```bash
 cd ../frontend
-```
-
-### Install Dependencies
-
-```bash
 npm install
-```
-
-### Start the Frontend Server
-
-```bash
 npm run dev
 ```
 
-The application will run at: `http://localhost:3000`
+The frontend will run at: `http://localhost:3000`
 
-
-## 🔐 Authentication Flow
-
-1. Register a user via `POST /api/users/store`, copy token after created.
-2. Login internally using `POST /api/auth/login`, if you need generate new token with:
-   ```json
-   {
-     "userId": "<uuid>",
-     "password": "<AUTH_INTERNAL_PASSWORD>"
-   }
-   ```
-3. Store the JWT token and include it in the header:
-   ```
-   Authorization: Bearer <token>
-   ```
+### ✅ Frontend Features Implemented
+- Student Pages: Login, Submit Assignments, View Grades
+- Teacher Pages: View Assignments, Give Grades & Feedback (AI-assisted)
+- Markdown editor integration for submissions
+- Zustand for state persistence + role-based route protection
+- Visual feedback (status colors, loading states, etc.)
 
 ---
 
-## 🛠 Key Endpoints
+## 🔐 Authentication Flow
 
-### 🧑 User
-- `POST /api/users/store` – Create a new user (student/teacher).
-- `POST /api/auth/login` – Internal login using userId + internal password.
-- `POST /api/auth/frontend-login` – Login using email + password.
+1. Register via `POST /api/users/store` to get token.
+2. Login with either:
+   - Internal login (`POST /api/auth/login`) with `userId` + internal password
+   - Frontend login (`POST /api/auth/frontend-login`) with email + password
+3. Include JWT token in headers for further requests:
+
+```http
+Authorization: Bearer <token>
+```
+
+---
+
+## 🛠 Key API Endpoints
+
+### 🧑 Users
+- `POST /api/users/store` – Register user
+- `POST /api/auth/login` – Login via internal ID
+- `POST /api/auth/frontend-login` – Login via email & password
 
 ### 📝 Assignments
-- `POST /api/assignment/store` – Submit an assignment (student).
-- `GET /api/assignment/list?id=:assignId` – View assignment list by Assignment id.
-- `GET /api/assignment/list?studentId=:studentId` – View assignment list by Student id.
-- `GET /api/assignment/list?subject=:subject` – View assignment list by Subject.
+- `POST /api/assignment/store` – Submit assignment
+- `GET /api/assignment/list?id=...` – Filter by assignment ID
+- `GET /api/assignment/list?studentId=...` – Filter by student ID
+- `GET /api/assignment/list?subject=...` – Filter by subject
 
 ### 🏁 Grades
-- `POST /api/grades/store` – Submit grade and feedback (teacher).
-- `GET /api/grades/list/:studentId` – View grades by student id.
+- `POST /api/grades/store` – Submit grade + feedback
+- `GET /api/grades/list/:studentId` – View student grades
+
+---
+
+## 🤖 Bonus Features
+- AI Feedback using OpenRouter.ai
+- Sticky & clean Navbar
+- Alert/toast with basic `alert()`
+- Zustand session persistence with auto redirect
+- Markdown support with MDEditor
+- Color-coded grade status
 
 ---
 
 ## 📬 Postman Collection
 
-To try the API directly:
-
+To test the API easily:
 - [Download Collection](./postman/Edukita.postman_collection.json)
 - [Download Environment](./postman/Edukita%20Local.postman_environment.json)
 
-**Quick steps:**
-1. Open Postman
-2. Import both files
-3. Select the Edukita Local environment
-4. Execute each request as needed
+### Steps:
+1. Import collection & environment to Postman
+2. Set environment to "Edukita Local"
+3. Use API endpoints with correct tokens
 
 ---
 
-## ✅ Requirements
-- Node.js 18+
-- PostgreSQL (local or cloud)
+## ✅ Tech Requirements
+- Node.js v18+
+- PostgreSQL (local or remote)
 - Git
-
----
-
-## 🤖 Optional Features
-- Auto-logging via Winston (to `logs/`)
-- Role-based middleware (`authenticate`, `requireRole`)
-<!--- Dummy AI feedback ready for frontend integration-->
 
 ---
 
 ## 👨‍💻 Author
 **Randy Setiawan Hoesin**  
 GitHub: [https://github.com/randysetiawanh](https://github.com/randysetiawanh)
+
