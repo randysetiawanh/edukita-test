@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\" : \"Teacher\",\n    \"email\" : \"teacher@gmail.com\",\n    \"password\" : \"123456\",\n    \"role\" : \"teacher\"\n}",
+					"raw": "{\n    \"name\" : \"Student 2\",\n    \"email\" : \"student2@gmail.com\",\n    \"password\" : \"123456\",\n    \"role\" : \"student\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -40,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"userId\": \"fc2f5a09-13a7-4cf0-96fc-6082d761fe0c\",\n  \"password\": {{internal_password}}\n}",
+					"raw": "{\n  \"userId\": \"a198e85f-cfed-4977-98e3-b1429eda8c68\",\n  \"password\": \"edukita-inT3rN4l!Lk31s@1kaKl$204asS\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +70,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"email\": \"bryan@gmail.com\",\n  \"password\": \"123456\"\n}",
+					"raw": "{\n  \"email\": \"teacher@gmail.com\",\n  \"password\": \"123456\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,7 +100,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"grade\": 85,\n  \"feedback\": \"Great work, just fix your grammar.\",\n  \"teacherId\": \"d434f9f4-378e-45d3-83e5-2a4da7fc84cd\",\n  \"assignmentId\": 1\n}",
+					"raw": "{\n  \"grade\": 85,\n  \"feedback\": \"Great work, just fix your grammar.\",\n  \"teacherId\": \"a2ac8b40-6efe-45bc-8df8-e9800b234699\",\n  \"assignmentId\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -126,14 +126,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/grades/list/096eee19-59e9-4450-9c70-edbe9446e98e",
+					"raw": "{{url}}/grades/list/f0f27e8c-22fd-447b-80f5-af1efbf1a100",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"grades",
 						"list",
-						"096eee19-59e9-4450-9c70-edbe9446e98e"
+						"f0f27e8c-22fd-447b-80f5-af1efbf1a100"
 					]
 				}
 			},
@@ -146,7 +146,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"subject\": \"MATH\",\n  \"title\": \"My First Essay\",\n  \"content\": \"This is a sample assignment\",\n  \"studentId\": \"fc2f5a09-13a7-4cf0-96fc-6082d761fe0c\"\n}\n",
+					"raw": "{\n  \"subject\": \"MATH\",\n  \"title\": \"My First Essay\",\n  \"content\": \"This is a sample assignment\",\n  \"studentId\": \"f0f27e8c-22fd-447b-80f5-af1efbf1a100\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
